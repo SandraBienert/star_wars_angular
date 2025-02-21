@@ -19,6 +19,10 @@ export class StarshipsListComponent implements OnInit {
 
   constructor(private apiServiceService: ApiServiceService){}
 
+  ngOnInit(): void {
+    this.loadStarships();
+  }
+
   loadStarships(url:string|null|undefined = this.apiServiceService['apiUrl']):void {
     if(this.loading || !url ) return;
     this.loading = true;
@@ -36,8 +40,6 @@ export class StarshipsListComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
-    this.loadStarships();
-  }
+
 
 }

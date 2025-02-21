@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
 
 export class ApiServiceService {
 
-  private apiUrl = 'https://swapi.dev/api/starships';
+  private apiUrl = 'https://swapi.dev/api/starships/?page=1';
   private imageBase='https://starwars-visual-guide.com/assets/img/';
 
 
