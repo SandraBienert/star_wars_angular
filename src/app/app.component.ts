@@ -4,6 +4,7 @@ import { StarshipsListComponent } from './core/starships-list/starships-list.com
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, StarshipsListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

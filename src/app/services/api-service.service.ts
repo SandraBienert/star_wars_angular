@@ -5,10 +5,10 @@ import { map, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ApiServiceService {
 
-  private apiUrl = 'https://swapi.dev/';
-  private apiNaus = 'api/starships';
+  private apiUrl = 'https://swapi.dev/api/starships';
   private imageBase='https://starwars-visual-guide.com/assets/img/';
 
 
@@ -35,6 +35,7 @@ getStarshipById(id: string): Observable<any>{
 
   extractIdFromUrl(url: string): string{
     const segments = url.split('/').filter(Boolean);
+    console.log(url)
     return segments[segments.length - 1];
 }
 

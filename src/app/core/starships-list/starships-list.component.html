@@ -1,4 +1,11 @@
+<div class="container">
 <ul class="list-group">
-  <li class="list-group-item active" aria-current="true" *ngFor="let starship of starships"> Nom: {{starship.nom}}
-    <br> Model: {{starship.model}} </li>
+  <a class="list-group-item" *ngFor="let starship of starships"> Nom: {{starship.name}}
+    <br> Model: {{starship.model}}
+  </a>
 </ul>
+<div class="d-flex justify-content-center">
+  <button class="btn btn-warning" (click)="viewMore()">
+    View More
+  </button>
+</div>
