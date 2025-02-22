@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-
+import { map, Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { IStarships } from '../interfaces/i-starships';
+import { IResultsApi } from '../interfaces/i-results-api';
 
 
 @Injectable({
@@ -17,39 +19,44 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getStarshipsData(): Observable<any>{
-    return this.http.get<any>(this.apiUrl).pipe(
-      map((data: any) => ({
+  getStarshipsData(): Observable<IResultsApi> {
+    return this.http.get<IResultsApi>(this.apiUrl).pipe(
+      map((data: IResultsApi) => ({
         ...data,
-        results: data.results.map((starship: any) => ({
+        results: data.results.map((starship: IStarships) => ({
           ...starship,
-          id: this.extractIdFromUrl(starship.url),
+          id: this.extractIdFromUrl(starship.url), // Assegura't que el tipus de `id` coincideixi
         })),
-      }))
-    )}
+      })),
+      catchError((error) => {
+        console.error('Error obtenint les naus espacials:', error);
+        return of({ count: 0, next: null, previous: null, results: [] });
+      })
+    );
+  }
 
-    getStarshipById(id: string): Observable<any> {
-      return this.http.get(`${this.apiUrl}/${id}/`);
-    }
+  getStarshipById(id: string): Observable<IStarships | null> {
+    return this.http.get<IStarships>(`${this.apiUrl}/${id}/`).pipe(
+      catchError((error) => {
+        console.error('Error obtenint la nau espacial:', error);
+        return of(null); // Retorna `null` en cas d'error
+      })
+    );
+  }
 
-    extractIdFromUrl(url: string): string {
+    extractIdFromUrl(url: string): number {
       const segments = url.split('/').filter(Boolean);
-      return segments[segments.length - 1];
+      return parseInt(segments[segments.length - 1], 10); // Converteix a número
     }
 
-    async getStarshipImageUrl(id: string): Promise<string> {
+    getStarshipImageUrl(id: string): Observable<string> {
       const apiImageUrl = `${this.imageBase}starships/${id}.jpg`;
-
-      try {
-        // Fes una petició HEAD per comprovar si la imatge existeix
-        await this.http.head(apiImageUrl).toPromise();
-        return apiImageUrl; // Retorna la URL de la imatge de la API si existeix
-      } catch (error) {
-        return this.imageReserva; // Retorna la imatge de reserva si hi ha un error
-      }
+      return this.http.head(apiImageUrl).pipe(
+        map(() => apiImageUrl),
+        catchError(() => of(this.imageReserva))
+      );
     }
-
-    }
+}
 
 
 
