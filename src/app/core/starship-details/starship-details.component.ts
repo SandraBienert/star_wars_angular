@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './starship-details.component.html',
-  styleUrl: './starship-details.component.css'
+  styleUrls: ['./starship-details.component.css']
 })
 export class StarshipDetailsComponent implements OnInit {
 

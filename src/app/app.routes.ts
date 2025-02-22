@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import { StarshipDetailsComponent } from './core/starship-details/starship-details.component';
-import { AppComponent } from './app.component';
+import { StarshipsListComponent } from './core/starships-list/starships-list.component';
 
 export const routes: Routes = [
 
-  { path: '', component: AppComponent},
-  { path: 'home/starship/:id', component: StarshipDetailsComponent},
-  { path: '**', redirectTo: '' }
+  { path: '', component: StarshipsListComponent },
+  { path: 'starship/:id', component: StarshipDetailsComponent },
+
 ]

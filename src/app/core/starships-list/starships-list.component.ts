@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { RouterModule} from '@angular/router';
-import { IStarships } from '../../interfaces/i-starships';
+
 
 @Component({
   selector: 'app-starships-list',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './starships-list.component.html',
-  styleUrl: './starships-list.component.css',
+  styleUrls: ['./starships-list.component.css',],
   providers: [ApiService]
 })
 
@@ -18,7 +18,7 @@ export class StarshipsListComponent implements OnInit {
   starships: any[] = [];
   loading = false;
   nextUrl: string | null = null;
-  currentPage: any;
+  currentPage: number = 1;
 
   constructor(private apiService: ApiService){}
 
