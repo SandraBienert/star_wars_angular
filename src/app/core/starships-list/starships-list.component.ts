@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { ApiServiceService } from '../../services/api-service.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-starships-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './starships-list.component.html',
   styleUrl: './starships-list.component.css',
   providers: [ApiServiceService]

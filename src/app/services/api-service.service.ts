@@ -39,7 +39,8 @@ getStarshipById(id: string): Observable<any>{
     return segments[segments.length - 1];
 }
 
-
-
+getStarshipImageUrl(id: string): string {
+  return `${this.imageBase}starships/${id}.jpg`;
+}
 
 }
