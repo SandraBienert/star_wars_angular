@@ -1,11 +1,6 @@
-.background-container {
-  background-image: url('/assets/star-wars-spaceship.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100vh;
+#background{
+  background-color: grey;
 }
-
 h2{
   color: white;
 }
@@ -20,6 +15,5 @@ h1{
 
 #datos,
 #datos2{
-  border: 2px white solid;
-  background-color: white;
+  background-color: grey;
 }

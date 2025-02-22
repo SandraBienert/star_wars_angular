@@ -3,16 +3,16 @@
   <div class="d-flex justify-content-center">
     <div class="container">
       <div class="text-center">
-      <hr class="text-white my-1"/>
-      <h2 class="text-start py-2 ps-3">Starship</h2>
-      <hr class="text-white my-1"/>
+        <hr class="text-white my-1"/>
+        <h2 class="text-start py-2 ps-3">Starship</h2>
+        <hr class="text-white my-1"/>
       </div>
-      <div *ngIf ="starship" class="row pt-4 d-flex align-items-center">
-     <div class="col-md-6 d-flex">
+      <div *ngIf ="starship" class="row pt-4 d-flex align-items-center" id="background">
+        <div class="col-md-6 d-flex">
           <h1 class="mb-3">{{starship.name}}</h1>
         </div>
         <div class="datos-container">
-        <div class="row d-flex">
+        <div class="row d-flex textalign-center">
           <div class="col-6 pt-4" id="datos">
             <p><strong>Name:</strong> {{starship.name}}</p>
             <p><strong>Model:</strong> {{starship.model}}</p>
