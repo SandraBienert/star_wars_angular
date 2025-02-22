@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-starship-details',
   standalone: true,
@@ -12,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './starship-details.component.html',
   styleUrls: ['./starship-details.component.css']
 })
+
 export class StarshipDetailsComponent implements OnInit {
 
   starship: any;
@@ -35,8 +34,10 @@ export class StarshipDetailsComponent implements OnInit {
     })
   }
 
-  getStarshipImage(): string {
-    const id= this.apiService.extractIdFromUrl(this.starship.url);
-    return this.apiService.getStarshipImageUrl(id);
+  async getStarshipImage(): Promise<string> {
+      const imageUrl = await this.apiService.getStarshipImageUrl('1');
+      console.log('URL de la imatge:', imageUrl);
+      return imageUrl;
+    }
 }
-}
+

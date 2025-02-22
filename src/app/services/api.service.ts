@@ -11,7 +11,8 @@ import { map, Observable } from 'rxjs';
 export class ApiService {
 
   private apiUrl = 'https://swapi.dev/api/starships';
-  private imageBase='https://starwars-visual-guide.com/assets/img/';
+  private imageBase='https://starwars-visual-guide.com/assets/';
+  private imageReserva= '/public/img/nauReserva.png'
 
 
   constructor(private http: HttpClient) { }
@@ -36,10 +37,19 @@ export class ApiService {
       return segments[segments.length - 1];
     }
 
-    getStarshipImageUrl(id: string): string {
-      return `${this.imageBase}starships/${id}.jpg`;
+    async getStarshipImageUrl(id: string): Promise<string> {
+      const apiImageUrl = `${this.imageBase}starships/${id}.jpg`;
+
+      try {
+        // Fes una petició HEAD per comprovar si la imatge existeix
+        await this.http.head(apiImageUrl).toPromise();
+        return apiImageUrl; // Retorna la URL de la imatge de la API si existeix
+      } catch (error) {
+        return this.imageReserva; // Retorna la imatge de reserva si hi ha un error
+      }
     }
 
-}
+    }
+
 
 
