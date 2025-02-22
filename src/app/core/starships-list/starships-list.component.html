@@ -1,6 +1,6 @@
 <div class="container">
 <ul class="list-group">
-  <a class="list-group-item" *ngFor="let starship of starships" [routerLink]="['/starship', starship.id]">
+  <a class="list-group-item" *ngFor="let starship of starships" (click)="navigateToStarship(starship.id)">
     Nom: {{starship.name}}
     <br>
     Model: {{starship.model}}

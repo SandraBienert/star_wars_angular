@@ -8,15 +8,13 @@ import { map, Observable } from 'rxjs';
 
 export class ApiServiceService {
 
-  private apiUrl = 'https://swapi.dev/api/starships/?page=1';
+  private apiUrl = 'https://swapi.dev/api/starships/?page=${page}';
   private imageBase='https://starwars-visual-guide.com/assets/img/';
-
-
 
 
   constructor(private http: HttpClient) { }
 
-  getDataStarships(): Observable<any>{
+  getDataStarships(page: number): Observable<any>{
     return this.http.get<any>(this.apiUrl).pipe(
       map((data: any) => ({
         ...data,
