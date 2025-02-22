@@ -1,5 +1,6 @@
 export interface IStarships {
-  id?: number;
+  url: string;
+  id?: string;
   name: string;
   model: string;
   manufacturer: string;

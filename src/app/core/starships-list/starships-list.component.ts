@@ -1,40 +1,36 @@
 import { CommonModule } from '@angular/common';
-import { OnInit } from '@angular/core';
-import { Component } from '@angular/core';
-import { ApiServiceService } from '../../services/api-service.service';
-import { Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../services/api.service';
+import { RouterModule} from '@angular/router';
+import { IStarships } from '../../interfaces/i-starships';
 
 @Component({
   selector: 'app-starships-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './starships-list.component.html',
   styleUrl: './starships-list.component.css',
-  providers: [ApiServiceService]
+  providers: [ApiService]
 })
+
+
 export class StarshipsListComponent implements OnInit {
   starships: any[] = [];
   loading = false;
   nextUrl: string | null = null;
   currentPage: any;
 
-  constructor(private apiServiceService: ApiServiceService, private router: Router){}
+  constructor(private apiService: ApiService){}
 
   ngOnInit(): void {
-    this.apiServiceService.getDataStarships(this.currentPage).subscribe(data => {
-      if (data) {
-        this.starships = data.results;
-      } else {
-        console.log('No se pudieron cargar las naves');
-      }
-    });
+    this.loadStarships();
   }
 
-  loadStarships(url:string|null|undefined = this.apiServiceService['apiUrl']):void {
+  loadStarships(url:string|null|undefined = this.apiService['apiUrl']):void {
     if(this.loading || !url ) return;
     this.loading = true;
 
-    this.apiServiceService.getDataStarships(this.currentPage).subscribe((data) =>{
+    this.apiService.getStarshipsData().subscribe((data) =>{
       this.starships = [...this.starships, ...data.results];
       this.nextUrl = data.next;
       this.loading = false;
@@ -44,10 +40,6 @@ export class StarshipsListComponent implements OnInit {
   viewMore(): void {
     this.currentPage++;
     this.loadStarships();
-  }
-
-  navigateToStarship(starshipId: number) {
-    this.router.navigate(['/starship', starshipId]); // Navega a la ruta
   }
 
 

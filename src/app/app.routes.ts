@@ -3,7 +3,8 @@ import { StarshipDetailsComponent } from './core/starship-details/starship-detai
 import { AppComponent } from './app.component';
 
 export const routes: Routes = [
-  { path: 'starship/:id', component: StarshipDetailsComponent }, // Ruta con parámetro dinámico
+
   { path: '', component: AppComponent},
+  { path: 'home/starship/:id', component: StarshipDetailsComponent},
   { path: '**', redirectTo: '' }
 ]
