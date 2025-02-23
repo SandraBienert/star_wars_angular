@@ -15,3 +15,7 @@ a{
 #container-login{
   gap:20px;
 }
+
+#hr{
+  border: 2px white solid;
+}
