@@ -14,7 +14,7 @@ export class ApiService {
 
   private apiUrl = 'https://swapi.dev/api/starships';
   private imageBase='https://starwars-visual-guide.com/assets/';
-  private imageReserva= '/public/img/nauReserva.png'
+  private imageReserva= 'img/nau.png';
 
 
   constructor(private http: HttpClient) { }
@@ -51,10 +51,14 @@ export class ApiService {
 
     getStarshipImageUrl(id: string): Observable<string> {
       const apiImageUrl = `${this.imageBase}starships/${id}.jpg`;
-      return this.http.head(apiImageUrl).pipe(
+      return this.http.head(apiImageUrl, {observe: 'response'}).pipe(
         map(() => apiImageUrl),
         catchError(() => of(this.imageReserva))
       );
+    }
+
+    public getImageReserva(): string {
+      return this.imageReserva;
     }
 }
 

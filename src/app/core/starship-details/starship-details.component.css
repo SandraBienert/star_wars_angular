@@ -17,3 +17,7 @@ h1{
 #datos2{
   background-color: grey;
 }
+
+img{
+  position: relative;
+}

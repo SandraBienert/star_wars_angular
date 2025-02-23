@@ -1,8 +1,9 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgIfContext } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { IStarships } from '../../interfaces/i-starships';
+import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common'
 
 @Component({
   selector: 'app-starship-details',
@@ -15,7 +16,9 @@ import { IStarships } from '../../interfaces/i-starships';
 export class StarshipDetailsComponent implements OnInit {
 
   starship: any = {}; // Inicialitza amb un objecte buit
-  loading!: TemplateRef<NgIfContext<any>> | null;
+  starshipImageUrl: string = ''; // Inicialment buida
+  defaultImageUrl: string = 'img/nau.png';
+
 
   constructor(private apiService: ApiService, private route: ActivatedRoute) {}
 
@@ -26,29 +29,31 @@ export class StarshipDetailsComponent implements OnInit {
     }
   }
 
-
   loadStarshipDetails(id: string): void{
     this.apiService.getStarshipById(id).subscribe(
         (data) => {
           this.starship = data;
+          this.apiService.getStarshipImageUrl(id).subscribe((url) => {
+            this.starshipImageUrl = url;
+          });
         },
         (error) => {
           console.error('Error obtenint les dades de la nau espacial:', error);
-          this.starship = { name: 'Desconegut', model: 'Desconegut', manufacturer: 'Desconegut' }; // Valor per defecte
+          this.starship = { name: 'undefined', model: 'undefined', manufacturer: 'undefined' }; // Valor per defecte
+          this.starshipImageUrl = this.apiService.getImageReserva();
         }
       );
   }
 
-   getStarshipImage(id: string) : string {
+   getStarshipImage(id: string) : void {
    let imageUrl: string = '';
    this.apiService.getStarshipImageUrl(id).subscribe(
      (url) => {
-       imageUrl = url;
+      this.starshipImageUrl = url;
      },
      (error) => {
        console.error('Error obtenint la URL de la imatge de la nau espacial:', error);
-     }
-   );
-   return imageUrl;
+     });
+     this.starshipImageUrl = this.defaultImageUrl;
 }
 }
