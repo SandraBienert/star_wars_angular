@@ -8,15 +8,23 @@ export class AuthService {
 
   constructor(private auth: Auth) { }
 
-  async register(email: string, password: string){
-    return await createUserWithEmailAndPassword(this.auth, email, password);
+  async login(email: string, password: string) {
+    try {
+      const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+      return userCredential.user;
+    } catch (error) {
+      console.error('Error en el login:', error);
+      throw error;
+    }
   }
 
-  async login(email: string, password: string){
-    return await signInWithEmailAndPassword(this.auth, email, password);
-  }
-
-  async logout() {
-    return await signOut(this.auth);
+  async register(email: string, password: string) {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+      return userCredential.user;
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      throw error;
+    }
   }
 }
