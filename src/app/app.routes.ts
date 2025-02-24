@@ -7,10 +7,25 @@ import { LoginComponent } from './auth/login/login.component';
 
 export const routes: Routes = [
 
-  { path: '', component: WelcomeComponent},
-  { path: 'starship/:id', component: StarshipDetailsComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-  { path: '**', component: WelcomeComponent }
+{
+  path: 'welcome',
+  component: WelcomeComponent
+},
+{
+  path: 'starship/:id', component: StarshipDetailsComponent
+},
 
+ {
+  path: 'home', component: HomeComponent
+},
+{
+  path: 'login', component: LoginComponent
+},
+{
+  path: 'register', component: RegisterComponent
+},
+{
+    path: '**',
+    redirectTo: 'welcome',
+}
 ]
