@@ -6,8 +6,9 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 export const routes: Routes = [
 
-{ path: 'welcome', component: WelcomeComponent},
-{ path: 'starship/:id', component: StarshipDetailsComponent},
-{ path: 'home', component: HomeComponent},
-{ path: '**',redirectTo: 'welcome'}
-]
+{ path: '', redirectTo: 'welcome', pathMatch: 'full' },
+{ path: 'welcome', component: WelcomeComponent },
+{ path: 'home', component: HomeComponent },
+{ path: 'starship/:id', component: StarshipDetailsComponent },
+{ path: '**',redirectTo: 'welcome' }
+];
