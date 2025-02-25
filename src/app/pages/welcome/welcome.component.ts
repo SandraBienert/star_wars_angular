@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ButtonsComponent } from "../buttons/buttons.component";
+import { ButtonsComponent } from "../../components/buttons/buttons.component";
 import { AuthService } from '../../services/auth.service';
 
 @Component({

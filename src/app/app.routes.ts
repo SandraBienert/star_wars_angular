@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { StarshipDetailsComponent } from './core/starship-details/starship-details.component';
-import { HomeComponent } from './components/home/home.component';
-import { WelcomeComponent } from './components/welcome/welcome.component';
+import { HomeComponent } from './pages/home/home.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 
