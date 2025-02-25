@@ -7,12 +7,12 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-welcome',
   standalone: true,
   imports: [CommonModule, ButtonsComponent],
-  providers:[AuthService],
+  providers:[],
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.css'
 })
 export class WelcomeComponent {
 
-  constructor(private authService: AuthService){}
+  constructor(){}
 
 }

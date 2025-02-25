@@ -7,11 +7,10 @@ import { AuthComponent } from './components/auth/auth.component';
 
 export const routes: Routes = [
 
-{ path: '', redirectTo: 'auth', pathMatch: 'full' },
+{ path: '', redirectTo: 'welcome', pathMatch: 'full' },
 { path: 'welcome', component: WelcomeComponent },
 { path: 'auth', component: AuthComponent},
 { path: 'home', component: HomeComponent },
-{ path:'auth', component: AuthComponent},
 { path: 'starship/:id', component: StarshipDetailsComponent },
 { path: '**',redirectTo: 'welcome' }
 ];
