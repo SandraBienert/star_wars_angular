@@ -6,9 +6,11 @@
   justify-content: center;
   align-items: center;
   padding: 16px;
-  text-align:  center
-
+  text-align:  center;
+  background-color: white;
+  color: black;
 }
+
 .mat-card-header{
     display: flex;
     flex-direction:column;
@@ -33,7 +35,7 @@
 }
 
 button {
- background-color: rgba(255, 255, 0, 0.625);
+ background-color: #ffc107;;
  border-radius: 15%;
  }
 
@@ -42,3 +44,12 @@ button {
   border-color: black;
 
  }
+ .example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
