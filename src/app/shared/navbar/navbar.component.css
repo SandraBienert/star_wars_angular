@@ -1,6 +1,19 @@
-
-.navbar{
+.container-fluid{
   color: white;
+  background-color: black;
+}
+
+#containerGeneral{
+  gap: 100px;
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
+
+#xarxesSocials{
+  gap: 20px;
+}
+ li{
+  list-style: none;
 }
 
 a{
@@ -16,6 +29,3 @@ a{
   gap:20px;
 }
 
-#hr{
-  border: 3px white solid;
-}
