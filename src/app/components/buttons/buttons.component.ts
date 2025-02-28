@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
 import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-buttons',
@@ -13,7 +13,7 @@ export class ButtonsComponent {
   email: string = '';
   password: string = '';
 
-  constructor (private authService: AuthService){}
+  constructor (){}
 
   login(){
     console.log('login');

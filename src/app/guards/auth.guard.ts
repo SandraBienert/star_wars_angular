@@ -9,7 +9,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   return auth.isAuthenticated$.pipe(
     tap((isAuthenticated) =>{ //ejecutar efectos secundarios
       if(!isAuthenticated){
-        router.navigate(['/auth']);
+        router.navigate(['/welcome']);
       }
     }),
     map(isAuthenticated => isAuthenticated) //transformar el valor emitido, autenticado
