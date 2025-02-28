@@ -1,3 +1,8 @@
+nav{
+  margin: 0;
+  padding: 0;
+}
+
 .container-fluid{
   color: white;
   background-color: black;
@@ -7,6 +12,7 @@
   gap: 100px;
   padding-top: 30px;
   padding-bottom: 50px;
+  background-color: black;
 }
 
 #xarxesSocials{
@@ -22,9 +28,9 @@ a{
   color: white;
 }
 
-#container-redes{
-  gap: 20px;
-}
 
+.auth{
+  color: yellow;
+}
 
 

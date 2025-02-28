@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { ButtonsComponent } from "../../components/buttons/buttons.component";
 
 
+
 @Component({
   selector: 'app-welcome',
   standalone: true,
