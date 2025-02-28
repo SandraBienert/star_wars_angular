@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StarshipsListComponent } from '../../core/starships-list/starships-list.component';
 
@@ -10,6 +10,11 @@ import { StarshipsListComponent } from '../../core/starships-list/starships-list
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
+    userLoginOn : boolean = false;
+
+    constructor(){}
+
+    ngOnInit(){}
 }

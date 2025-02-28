@@ -8,10 +8,10 @@ import { LoginComponent } from './components/auth/login/login.component';
 
 export const routes: Routes = [
 
-{ path: '', redirectTo: 'welcome', pathMatch: 'full' },
-{ path: 'welcome', component: WelcomeComponent},
-{ path: 'auth', component: LoginComponent},
-{ path: 'home', component: HomeComponent},
-{ path: 'starship/:id', component: StarshipDetailsComponent},
-{ path: '**', redirectTo: 'welcome', pathMatch: 'full' }
+  { path:'', redirectTo: '/welcome', pathMatch: 'full'},
+  { path: 'welcome', component: WelcomeComponent},
+  { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent},
+  { path: 'starship/:id', component: StarshipDetailsComponent},
+
 ];

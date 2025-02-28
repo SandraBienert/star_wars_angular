@@ -12,7 +12,8 @@
 #xarxesSocials{
   gap: 20px;
 }
- li{
+
+li{
   list-style: none;
 }
 
@@ -25,7 +26,5 @@ a{
   gap: 20px;
 }
 
-#container-login{
-  gap:20px;
-}
+
 

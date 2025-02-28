@@ -14,7 +14,7 @@ import { MatButtonModule} from '@angular/material/button';
 })
 export class NavbarComponent implements OnInit{
 
-userLoginOn: boolean = false;
+userLoginOn: boolean = false; //para que aparezca o no inicio o cerrar sesion
 
   ngOnInit(): void{
 
