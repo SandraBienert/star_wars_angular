@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -5,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -24,7 +25,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-}
+  }
+
+  get email(){
+    return this.loginForm.controls['email'];
+  }
+
+  get password(){
+    return this.loginForm.controls['password'];
+  }
 
   login(){
     if(this.loginForm.valid){
@@ -32,7 +41,10 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('/home');
       this.loginForm.reset();
     }else{
-      alert('Error ingreso datos')
+     this.loginForm.markAllAsTouched();
     }
   }
+
+
+
 }

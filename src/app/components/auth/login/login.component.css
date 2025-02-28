@@ -2,3 +2,13 @@
 form {
   margin: 20px;
 }
+
+
+
+.ng-valid:not(form).ng-touched {
+  border-left: 8px solid #42a948;
+}
+
+.ng-valid:not(form).ng-touched{
+  border-left: 8px solid #a90f0c;
+}
