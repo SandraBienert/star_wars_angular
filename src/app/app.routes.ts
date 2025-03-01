@@ -3,6 +3,8 @@ import { StarshipDetailsComponent } from './core/starship-details/starship-detai
 import { HomeComponent } from './pages/home/home.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { LoginComponent } from './components/auth/login/login.component';
+import { AuthGuard } from './guards/auth-guard';
+import { RegisterComponent } from './components/auth/register/register.component';
 
 
 
@@ -11,7 +13,8 @@ export const routes: Routes = [
   { path:'', redirectTo: '/welcome', pathMatch: 'full'},
   { path: 'welcome', component: WelcomeComponent},
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent},
-  { path: 'starship/:id', component: StarshipDetailsComponent},
+  { path: 'register', component: RegisterComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  { path: 'starship/:id', component: StarshipDetailsComponent, canActivate: [AuthGuard]},
 
 ];

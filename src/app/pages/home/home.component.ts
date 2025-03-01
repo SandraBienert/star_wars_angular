@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StarshipsListComponent } from '../../core/starships-list/starships-list.component';
-import { LoginService } from '../../services/auth/login.service';
 import { UserInterface } from '../../interfaces/user-interface';
+import { AuthSupaService } from '../../services/auth-supa.service';
 
 
 @Component({
@@ -17,23 +17,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     userLoginOn : boolean = false;
     userData?: UserInterface;
 
-    constructor(private loginService: LoginService){}
+
+    constructor(private authSupaService: AuthSupaService){}
 
     ngOnInit(): void {
-      this.loginService.currentUserLoginOn.subscribe({
-        next: (userLoginOn) => {
+      this.authSupaService.currentUserLoginOn.subscribe({
+        next: (userLoginOn: boolean) => {
           this.userLoginOn = userLoginOn;
         }
       });
-      this.loginService.currentUserData.subscribe({
-        next:(userData) => {
+      this.authSupaService.currentUserData.subscribe({
+        next:(userData: UserInterface | undefined) => {
           this.userData = userData;
         }
       })
     }
 
     ngOnDestroy(): void {
-      this.loginService.currentUserData.unsubscribe();
-      this.loginService.currentUserLoginOn.unsubscribe();
+      this.authSupaService.currentUserData.unsubscribe();
+      this.authSupaService.currentUserLoginOn.unsubscribe();
     }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./shared/navbar/navbar.component";
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
