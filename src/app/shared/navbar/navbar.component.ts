@@ -19,14 +19,12 @@ userLoginOn: boolean = false; //para que aparezca o no inicio o cerrar sesion
 
 constructor(private LoginService: LoginService){}
 
-  ngOnInit(): void{
-    this.LoginService.currentUserLoginOn.subscribe(
-      {
+  ngOnInit(): void {
+    this.LoginService.currentUserLoginOn.subscribe({
         next: (userLoginOn) => {
           this.userLoginOn = userLoginOn;
         }
-      }
-    )
+      })
   }
 
   ngOnDestroy(): void {
