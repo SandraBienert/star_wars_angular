@@ -1,3 +1,9 @@
-
+<p *ngIf="!userLoginOn">Usuario no autentificado</p>
+<p *ngIf="userLoginOn">Usuario autentificado</p>
+<div *ngIf="userLoginOn">
+  <p>Nombre: {{userData?.name}}</p>
+  <p>Apellido: {{userData?.lastName}}</p>
+  <p>email: {{userData?.email}}</p>
+</div>
 <app-starships-list></app-starships-list>
 

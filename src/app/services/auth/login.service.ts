@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { loginRequest } from './loginRequest.interface';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, throwError, BehaviorSubject, tap } from 'rxjs';
 import { UserInterface } from '../../interfaces/user-interface'; // Correct the import path for userInterface
 
 @Injectable({
@@ -9,10 +9,17 @@ import { UserInterface } from '../../interfaces/user-interface'; // Correct the 
 })
 export class LoginService {
 
+  currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  currentUserData: BehaviorSubject<UserInterface>= new BehaviorSubject<UserInterface>({id:0, email: ''});
+
   constructor(private http: HttpClient) { }
 
   login(credentials:loginRequest): Observable<UserInterface> {
     return this.http.get<UserInterface>('/data/data.json').pipe(
+      tap(UserData => {
+        this.currentUserData.next(UserData);
+        this.currentUserLoginOn.next(true);
+      }),
       catchError(this.handleError)
     )
   }
@@ -25,4 +32,12 @@ export class LoginService {
     }
     return throwError( () => new Error('Algo falló. Intentalo de nuevo'))
   }
+
+  get UserData(): Observable<UserInterface> { //subscripcion de componentes a cambios despues de login ok
+    return this.currentUserData.asObservable();
+  }
+
+  get userLoginOn():  Observable<boolean> {
+    return this.currentUserLoginOn.asObservable();
+}
 }
