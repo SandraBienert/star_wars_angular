@@ -10,7 +10,7 @@ import { loginRequest } from '../../../services/auth/loginRequest.interface';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 
 
@@ -18,9 +18,11 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService){
+  loginError: string = '';
 
-     this.loginForm = this.formBuilder.group({
+  constructor(private fb: FormBuilder, private router: Router, private loginService: LoginService){
+
+     this.loginForm = this.fb.group({
       email: ['lanalane@gmail.com', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
@@ -40,23 +42,21 @@ export class LoginComponent implements OnInit {
   login(){
     if(this.loginForm.valid){
       this.loginService.login(this.loginForm.value as loginRequest).subscribe({
-          next: (userData) =>{
-            console.log(userData);
+          next: (userData) => {
+            console.log('Usuari logejat: ', userData);
           },
-          error(errorData){
-            console.log(errorData);
+          error: (errorData)  => {
+            console.log('Error en login: ', errorData);
+            this.loginError = errorData;
           },
           complete: () => {
-            console.info("login completado")
+            console.info('Login completado')
+            this.router.navigateByUrl('/home');
+            this.loginForm.reset();
           }
-          }),
-      this.router.navigateByUrl('/home');
-      this.loginForm.reset();
+          })
     }else{
      this.loginForm.markAllAsTouched();
     }
   }
-
-
-
 }
