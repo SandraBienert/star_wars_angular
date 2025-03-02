@@ -1,4 +1,13 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 mx-3 mt-5">
+  <div class="card text-center">
+    <div class="card-header">
+      <img src="/logo/logoDW.jpeg" alt="logo cabeza darth vather" width="100px" height="100px"/>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Register</h5>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div class="mb-3">
     <label for="email" class="form-label">Email</label>
     <input formControlName="email" type="email" class="form-control" id="email">
@@ -17,4 +26,8 @@
 </div>
   <button type="submit" class="btn btn-warning" [disabled]="registerForm.invalid">Registrar-se</button>
 </form>
+</div>
+</div>
+</div>
+</div>
 

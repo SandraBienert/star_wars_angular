@@ -36,7 +36,11 @@ export class ApiService {
   }
 
   getStarshipById(id: string): Observable<IStarships | null> {
-    return this.http.get<IStarships>(`${this.apiUrl}/${id}/`).pipe(
+    return this.http.get<IResultsApi>(this.apiUrl).pipe(
+      map((data: IResultsApi) => {
+        const starship = data.results.find((s: IStarships) => this.extractIdFromUrl(s.url) === +id);
+        return starship || null; // Retorna la nau espacial o `null` si no es troba
+      }),
       catchError((error) => {
         console.error('Error obtenint la nau espacial:', error);
         return of(null); // Retorna `null` en cas d'error

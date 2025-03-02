@@ -31,29 +31,26 @@ export class StarshipDetailsComponent implements OnInit {
 
   loadStarshipDetails(id: string): void{
     this.apiService.getStarshipById(id).subscribe(
-        (data) => {
-          this.starship = data;
-          this.apiService.getStarshipImageUrl(id).subscribe((url) => {
-            this.starshipImageUrl = url;
-          });
-        },
-        (error) => {
-          console.error('Error obtenint les dades de la nau espacial:', error);
-          this.starship = { name: 'undefined', model: 'undefined', manufacturer: 'undefined' }; // Valor per defecte
-          this.starshipImageUrl = this.apiService.getImageReserva();
-        }
-      );
+      (data) => {
+        this.starship = data;
+        this.getStarshipImage(id); // Crida el mètode per obtenir la imatge
+      },
+      (error) => {
+        console.error('Error obtenint les dades de la nau espacial:', error);
+        this.starship = { name: 'undefined', model: 'undefined', manufacturer: 'undefined' }; // Valor per defecte
+        this.starshipImageUrl = this.apiService.getImageReserva();
+      }
+    );
   }
 
    getStarshipImage(id: string) : void {
-   let imageUrl: string = '';
-   this.apiService.getStarshipImageUrl(id).subscribe(
-     (url) => {
-      this.starshipImageUrl = url;
-     },
-     (error) => {
-       console.error('Error obtenint la URL de la imatge de la nau espacial:', error);
-     });
-     this.starshipImageUrl = this.defaultImageUrl;
-}
-}
+    this.apiService.getStarshipImageUrl(id).subscribe(
+      (url) => {
+        this.starshipImageUrl = url;
+      },
+      (error) => {
+        console.error('Error obtenint la URL de la imatge de la nau espacial:', error);
+        this.starshipImageUrl = this.defaultImageUrl; // Utilitza la imatge per defecte en cas d'error
+      }
+    );
+}}

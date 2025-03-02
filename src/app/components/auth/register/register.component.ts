@@ -28,7 +28,7 @@ export class RegisterComponent {
       createUserWithEmailAndPassword(this.auth, email, password) // Registra l'usuari amb Firebase
         .then((userCredential) => {
           console.log('Usuari registrat: ', userCredential.user);
-          this.router.navigateByUrl('/home'); // Redirigeix a la pàgina d'inici
+          this.router.navigateByUrl('/login'); // Redirigeix a la pàgina d'inici
         })
         .catch((error) => {
           console.log('Error en el registre: ', error);

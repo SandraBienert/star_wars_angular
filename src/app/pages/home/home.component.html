@@ -1,8 +1,10 @@
-<div *ngIf="userLoginOn">
+<div *ngIf="userLoginOn; else loginMessage">
   <p>Benvingut/da, {{ userData?.displayName || userData?.email }}!</p>
 </div>
-<div *ngIf="!userLoginOn">
+
+<ng-template #loginMessage>
   <p>Si us plau, inicia sessió per accedir al contingut.</p>
-</div>
+</ng-template>
+
 <app-starships-list></app-starships-list>
 
