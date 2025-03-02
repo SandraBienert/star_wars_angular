@@ -1,7 +1,6 @@
-
+<div class="container-carrousel">
   <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-      <div  >
       <div class="carousel-item active" *ngFor="let image of carrouselImages; let i = index" [class.active]="i === 0">
         <img [src]="image" class="d-block w-50 mx-auto" alt="Carousel image">
       </div>
@@ -16,5 +15,5 @@
     </button>
   </div>
 <app-buttons></app-buttons>
-
+</div>
 

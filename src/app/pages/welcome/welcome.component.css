@@ -1,3 +1,5 @@
-.carouselExampleInterval{
+.container-carrousel{
   background-color: black;
+  height: 100vh;
+  padding-top: 20px;
 }
