@@ -11,12 +11,9 @@
       <img src="/logo/logo-starwars-transp.png">
     </a>
     <ul id="containerSesion">
-        <li *ngIf="!userLoginOn" class="nav-item">
-          <a class="nav-link" routerLink="/login">Iniciar sesión</a>
-        </li>
-        <li *ngIf="userLoginOn" class="nav-item">
-          <a class="nav-link" routerLink="/welcome">Cerrar sesión</a>
-        </li>
+      <a *ngIf="!userLoginOn" routerLink="/login">Iniciar sessió</a>
+      <a *ngIf="!userLoginOn" routerLink="/register">Registrar-se</a>
+      <!-- <a *ngIf="userLoginOn" (click)="logout()">Tancar sessió</a> -->
       </ul>
     </div>
 </nav>

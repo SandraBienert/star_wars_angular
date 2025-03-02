@@ -14,7 +14,7 @@ export const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  { path: 'starship/:id', component: StarshipDetailsComponent, canActivate: [AuthGuard]},
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'starship/:id', component: StarshipDetailsComponent, canActivate: [AuthGuard] },
 
 ];

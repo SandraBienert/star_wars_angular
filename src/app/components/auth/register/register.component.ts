@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthSupaService } from '../../../services/auth-supa.service';
 import { Router } from '@angular/router';
-import { supa } from '../../../environment/firebase-auth';
-import { asyncScheduler } from 'rxjs';
+import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-register',
@@ -21,18 +19,39 @@ export class RegisterComponent {
   });
 
 
-  constructor( private authSupaService: AuthSupaService, private router: Router){}
+  constructor(private auth: Auth, private router: Router){}
 
 
   onSubmit(){
-    this.authSupaService.signUp(this.registerForm.value.email, this.registerForm.value.password)
-    .then((resp: any) => {
-      console.log(resp);
-    })
-    .catch((err) =>{
-      console.log(err)
-    })
+    if (this.registerForm.valid) {
+      const { email, password } = this.registerForm.value;
+      createUserWithEmailAndPassword(this.auth, email, password) // Registra l'usuari amb Firebase
+        .then((userCredential) => {
+          console.log('Usuari registrat: ', userCredential.user);
+          this.router.navigateByUrl('/home'); // Redirigeix a la pàgina d'inici
+        })
+        .catch((error) => {
+          console.log('Error en el registre: ', error);
+          // Mostra un missatge d'error a l'usuari
+          alert(this.getErrorMessage(error.code));
+        });
+    } else {
+      this.registerForm.markAllAsTouched();
+    }
   }
 
+   // Funció per mostrar missatges d'error més descriptius
+   getErrorMessage(errorCode: string): string {
+    switch (errorCode) {
+      case 'auth/email-already-in-use':
+        return 'Aquest correu electrònic ja està en ús.';
+      case 'auth/invalid-email':
+        return 'El correu electrònic no és vàlid.';
+      case 'auth/weak-password':
+        return 'La contrasenya és massa feble.';
+      default:
+        return 'Hi ha hagut un error en el registre.';
+    }
+  }
 
 }

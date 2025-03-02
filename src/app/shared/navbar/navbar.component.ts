@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { AuthSupaService } from '../../services/auth-supa.service';
+import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 
 
@@ -11,28 +11,38 @@ import { Subscription } from 'rxjs';
   imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class NavbarComponent implements OnInit, OnDestroy{
 
-userLoginOn: boolean = false; //para que aparezca o no inicio o cerrar sesion
-private subscription!: Subscription;
+  userLoginOn: boolean = false; //para que aparezca o no inicio o cerrar sesion
+  private authStateSubscription!: Subscription;
 
- // Utilitza inject per obtenir les dependències
- private authSupaService = inject(AuthSupaService);
- private router = inject(Router);
+
+  constructor(private auth: Auth, private router: Router) {}
 
   ngOnInit(): void {
-   this.subscription = this.authSupaService.currentUserLoginOn.subscribe({
-        next: (userLoginOn: boolean) => {
-          this.userLoginOn = userLoginOn;
-        }
-      })
+    this.authStateSubscription = new Subscription(() => {
+      onAuthStateChanged(this.auth, (user: User | null) => {
+        this.userLoginOn = !!user; // Actualitza l'estat de l'usuari
+      });
+    });
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe(); // Cancela la subscripció
+     // Cancela la subscripció per evitar fuites de memòria
+     if (this.authStateSubscription) {
+      this.authStateSubscription.unsubscribe();
+    }
+  }
+
+  // Mètode per tancar sessió
+  async logout() {
+    try {
+      await this.auth.signOut(); // Tanca la sessió amb Firebase
+      this.router.navigateByUrl('/login'); // Redirigeix a la pàgina d'inici de sessió
+    } catch (error) {
+      console.error('Error en tancar sessió: ', error);
     }
   }
 }

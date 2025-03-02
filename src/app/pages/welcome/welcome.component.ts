@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ButtonsComponent } from "../../components/buttons/buttons.component";
+import { Auth } from '@angular/fire/auth';
 
 
 
@@ -13,6 +14,6 @@ import { ButtonsComponent } from "../../components/buttons/buttons.component";
 })
 export class WelcomeComponent {
 
-  constructor(){}
+  constructor(private auth: Auth) {}
 
 }

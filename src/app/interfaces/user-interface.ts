@@ -1,8 +1,13 @@
 
 export interface UserInterface {
-  id: number;
-  name?: string;
-  lastName?: string;
+  uid: string;
   email: string;
-  message?: string
+  displayName: string;
 }
+
+interface FirebaseError {
+  code: string;
+  message: string;
+}
+
+
