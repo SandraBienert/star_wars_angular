@@ -1,4 +1,4 @@
-import { supa } from './../environment/supa';
+import { supa } from '../environment/firebase-auth';
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthSupaService } from '../../../services/auth-supa.service';
 import { Router } from '@angular/router';
-import { supa } from '../../../environment/supa';
+import { supa } from '../../../environment/firebase-auth';
 import { asyncScheduler } from 'rxjs';
 
 @Component({
