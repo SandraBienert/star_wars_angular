@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ButtonsComponent } from "../../components/buttons/buttons.component";
-import { Auth } from '@angular/fire/auth';
+import { CarrouselService } from '../../services/carrousel.service';
 
 
 
@@ -12,8 +12,15 @@ import { Auth } from '@angular/fire/auth';
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.css'
 })
-export class WelcomeComponent {
+export class WelcomeComponent implements OnInit {
 
-  constructor(private auth: Auth) {}
+  carrouselImages: string[] = []; // Array per emmagatzemar les URLs de les imatges
 
-}
+  constructor(private carrouselService: CarrouselService) {}
+
+  ngOnInit(): void {
+    this.carrouselImages = this.carrouselService.carouselImages(); // Carrega les imatges del servei
+  }
+
+  }
+

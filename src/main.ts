@@ -6,6 +6,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { environment } from './app/environment/firebase-auth';
+import { provideStorage } from '@angular/fire/storage';
+import { getStorage } from 'firebase/storage';
 
 
 bootstrapApplication(AppComponent, {
@@ -14,6 +16,7 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(),
     provideFirebaseApp(() => initializeApp(environment.firebase)), // Inicialitza Firebase
     provideAuth(() => getAuth()), // Proveeix el servei Auth
+    provideStorage(() => getStorage()),
   ]
  })
 
