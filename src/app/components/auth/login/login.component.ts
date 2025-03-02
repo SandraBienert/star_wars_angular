@@ -4,6 +4,8 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { Router } from '@angular/router';
 import { Auth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup  } from '@angular/fire/auth'; // Importa Firebase
 import { FirebaseError } from 'firebase/app';
+
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -18,7 +20,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginError: string = '';
 
-  constructor(private fb: FormBuilder, private auth: Auth, private router: Router){
+  constructor(private auth: Auth, private router: Router, private fb: FormBuilder){
 
      this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -27,7 +29,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
+
 
   get email(){
     return this.loginForm.controls['email'];

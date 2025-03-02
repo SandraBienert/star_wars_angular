@@ -1,25 +1,47 @@
-<form [formGroup]="loginForm"  (ngSubmit)="login()">
-  <p class="text-danger">{{loginError}}</p>
-  <div class="mb-3">
-    <label for="email" class="form-label">Email</label>
-    <input formControlName="email" type="email" class="form-control" id="email">
-    <div *ngIf="email.invalid && (email.touched || email.dirty)">
-      <small *ngIf="email.errors?.['required']">El correu electrònic és obligatori.</small>
-      <small *ngIf="email.errors?.['email']">Introdueix un correu electrònic vàlid.</small>
-    </div>
-</div>
-  <div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <input formControlName="password" type="password" class="form-control" id="password">
-    <div *ngIf="password.invalid && (password.touched || password.dirty)">
-      <small *ngIf="password.errors?.['required']">La contrasenya és obligatòria.</small>
-    </div>
-</div>
-  <button type="submit" class="btn btn-warning" [disabled]="loginForm.invalid">Iniciar sessió</button>
-  <div *ngIf="loginError" class="error-message">
-    {{ loginError }}
+<div class="container">
+<div class="row justify-content-center">
+  <div class="col-md-6 mx-3 mt-5">
+<div class="card text-center">
+  <div class="card-header">
+    <img src="/logo/logoDW.jpeg" alt="logo cabeza darth vather" width="100px" height="100px"/>
   </div>
-  <div>
-    <button type="submit" class="btn btn-warning"(click)="loginWithGoogle()">Iniciar sessió amb Google</button>
+  <div class="card-body">
+    <h5 class="card-title">Log in</h5>
+    <form [formGroup]="loginForm"  (ngSubmit)="login()">
+      <p class="text-danger">{{loginError}}</p>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input formControlName="email" type="email" class="form-control" id="email">
+        <div *ngIf="email.invalid && (email.touched || email.dirty)">
+          <small *ngIf="email.errors?.['required']">El correu electrònic és obligatori.</small>
+          <small *ngIf="email.errors?.['email']">Introdueix un correu electrònic vàlid.</small>
+        </div>
+    </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input formControlName="password" type="password" class="form-control" id="password">
+        <div *ngIf="password.invalid && (password.touched || password.dirty)">
+          <small *ngIf="password.errors?.['required']">La contrasenya és obligatòria.</small>
+        </div>
+    </div>
+      <button type="submit" class="btn btn-warning" [disabled]="loginForm.invalid">Iniciar sessió</button>
+      <div *ngIf="loginError" class="error-message">
+        {{ loginError }}
+      </div>
+      <div>
+        <button type="submit" class="btn btn-warning mt-3"(click)="loginWithGoogle()">Iniciar sessió amb Google</button>
+      </div>
+    </form>
   </div>
-</form>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
