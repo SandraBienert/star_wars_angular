@@ -1,9 +1,9 @@
+
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, NgIfContext } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { IStarships } from '../../interfaces/i-starships';
-import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common'
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-starship-details',
@@ -16,11 +16,13 @@ import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common'
 export class StarshipDetailsComponent implements OnInit {
 
   starship: any = {}; // Inicialitza amb un objecte buit
+  films: any[] = []; // Array per emmagatzemar les pel·lícules
+  pilots: any[] = []; // Array per emmagatzemar els pilots
   starshipImageUrl: string = ''; // Inicialment buida
   defaultImageUrl: string = 'img/nau.png';
 
 
-  constructor(private apiService: ApiService, private route: ActivatedRoute) {}
+  constructor(private apiService: ApiService, private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -29,7 +31,7 @@ export class StarshipDetailsComponent implements OnInit {
     }
   }
 
-  loadStarshipDetails(id: string): void{
+  loadStarshipDetails(id: string): void {
     this.apiService.getStarshipById(id).subscribe(
       (data) => {
         this.starship = data;
@@ -53,4 +55,26 @@ export class StarshipDetailsComponent implements OnInit {
         this.starshipImageUrl = this.defaultImageUrl; // Utilitza la imatge per defecte en cas d'error
       }
     );
-}}
+}
+
+    // Carrega les dades de les pel·lícules
+    loadFilms(filmUrls: string[]): void {
+      filmUrls.forEach(url => {
+        this.http.get(url).subscribe((film: any) => {
+          this.films.push(film);
+        });
+      });
+    }
+
+    // Carrega les dades dels pilots
+  loadPilots(pilotUrls: string[]): void {
+    pilotUrls.forEach(url => {
+      this.http.get(url).subscribe((pilot: any) => {
+        this.pilots.push(pilot);
+      });
+    });
+  }
+
+
+
+}

@@ -9,5 +9,6 @@ export interface IStarships {
   cargo_capacity: string;
   consumables: string;
   starship_class: string;
-  url: string;
+  films: [];
+  pilots: [];
 }

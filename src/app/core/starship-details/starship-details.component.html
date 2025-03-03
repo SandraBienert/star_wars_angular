@@ -25,7 +25,6 @@
             <p><strong>Capacidad:</strong> {{starship.cargo_capacity}}</p>
             <p><strong>Consumables:</strong> {{starship.consumables}}</p>
             <p><strong>Starship Class:</strong> {{starship.starship_class}}</p>
-            <p><strong>url:</strong> {{starship.url}}</p>
           </div>
         </div>
         </div>
@@ -34,4 +33,22 @@
   <ng-template #loading>
     <p>Carregant detalls de la nau espacial...</p>
   </ng-template>
+</div>
+<h3>Films</h3>
+  <ul>
+    <li *ngFor="let film of films">
+      {{ film.title }} ({{ film.release_date }})
+    </li>
+  </ul>
+
+  <h3>Pilots</h3>
+  <ul>
+    <li *ngFor="let pilot of pilots">
+      {{ pilot.name }} ({{ pilot.birth_year }})
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="!starship">
+  <p>Loading starship details...</p>
 </div>
