@@ -1,3 +1,4 @@
+<div *ngIf="starships.length > 0"></div>
 <div class="starships-container">
   <a class="list-group-item list-group" *ngFor="let starship of starships" [routerLink]="['/starship', starship.id]">
     Nom: {{starship.name}}<br>Model: {{starship.model}}
@@ -7,6 +8,8 @@
       View More
     </button>
   </div>
+<p *ngIf="loading">Loading...</p>
 </div>
-
-
+<div *ngIf="starships.length === 0 && !loading">
+  <p>No s'han trobat naus.</p>
+</div>
