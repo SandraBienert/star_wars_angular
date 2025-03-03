@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
-import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -16,23 +15,25 @@ import { Subscription } from 'rxjs';
 export class NavbarComponent implements OnInit, OnDestroy{
 
   userLoginOn: boolean = false; //para que aparezca o no inicio o cerrar sesion
-  private authStateSubscription!: Subscription;
+  isLoading: boolean = true; // Indica si s'està carregant l'estat de l'autenticació
+  private authStateUnsubscribe!: () => void;
+  private auth: Auth = inject(Auth);
 
-
-  constructor(private auth: Auth, private router: Router) {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.authStateSubscription = new Subscription(() => {
-      onAuthStateChanged(this.auth, (user: User | null) => {
+    setTimeout(() => {
+    this.authStateUnsubscribe = onAuthStateChanged(this.auth, (user: User | null) => {
         this.userLoginOn = !!user; // Actualitza l'estat de l'usuari
-      });
-    });
-  }
+        this.isLoading = false; // Indica que la càrrega ha acabat
+        });
+      }, 2000); // 2 segons d'espera
+    }
 
   ngOnDestroy(): void {
      // Cancela la subscripció per evitar fuites de memòria
-     if (this.authStateSubscription) {
-      this.authStateSubscription.unsubscribe();
+     if (this.authStateUnsubscribe) {
+      this.authStateUnsubscribe();
     }
   }
 

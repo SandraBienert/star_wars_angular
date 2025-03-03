@@ -11,8 +11,12 @@
       <img src="/logo/logo-starwars-transp.png">
     </a>
     <ul id="containerSesion">
-      <a *ngIf="!userLoginOn" routerLink="/login">Iniciar sessió</a>
-      <a *ngIf="userLoginOn" (click)="logout()">Tancar sessió</a>
+       <!-- Mostra "Carregant..." mentre s'està carregant l'estat -->
+       <span *ngIf="isLoading"class="spinner-border spinner-border-sm" role="status">Carregant...</span>
+       <!-- Mostra "Iniciar sessió" si no està carregant i l'usuari no està connectat -->
+       <a *ngIf="!isLoading && !userLoginOn" routerLink="/login">Iniciar sessió</a>
+       <!-- Mostra "Tancar sessió" si no està carregant i l'usuari està connectat -->
+       <a *ngIf="!isLoading && userLoginOn" (click)="logout()">Tancar sessió</a>
       </ul>
     </div>
 </nav>

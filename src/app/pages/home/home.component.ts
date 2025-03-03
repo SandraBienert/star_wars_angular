@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StarshipsListComponent } from '../../core/starships-list/starships-list.component';
 import { UserInterface } from '../../interfaces/user-interface';
@@ -17,25 +17,26 @@ export class HomeComponent implements OnInit, OnDestroy {
     userLoginOn : boolean = false;
     userData?: UserInterface;
     private unsubscribeAuthState!: () => void; // Funció de cancel·lació per a onAuthStateChanged
+    private auth: Auth = inject(Auth);
 
-    constructor(private auth: Auth, private router: Router){}
+    constructor(private router: Router){}
 
     ngOnInit(): void {
-  // Subscriu-te als canvis d'estat d'autenticació
-  this.unsubscribeAuthState = onAuthStateChanged(this.auth, (user: User | null) => {
-    if (user) {
-      // Si l'usuari ha iniciat sessió
-      this.userLoginOn = true;
-      this.userData = {
-        uid: user.uid,
-        email: user.email || '',
-        displayName: user.displayName || '',
-      };
-    } else {
-      // Si l'usuari no ha iniciat sessió
-      this.userLoginOn = false;
-      this.userData = undefined;
-    }
+      // Subscriu-te als canvis d'estat d'autenticació
+      this.unsubscribeAuthState = onAuthStateChanged(this.auth, (user: User | null) => {
+        if (user) {
+          // Si l'usuari ha iniciat sessió
+          this.userLoginOn = true;
+          this.userData = {
+            uid: user.uid,
+            email: user.email || '',
+            displayName: user.displayName || '',
+          };
+        } else {
+          // Si l'usuari no ha iniciat sessió
+          this.userLoginOn = false;
+          this.userData = undefined;
+        }
   });
     }
 
