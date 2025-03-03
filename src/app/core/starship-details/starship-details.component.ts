@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { FilmsListComponent } from "../films-list/films-list.component";
+
 
 @Component({
   selector: 'app-starship-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FilmsListComponent],
   templateUrl: './starship-details.component.html',
   styleUrls: ['./starship-details.component.css']
 })
@@ -16,8 +18,6 @@ import { HttpClient } from '@angular/common/http';
 export class StarshipDetailsComponent implements OnInit {
 
   starship: any = {}; // Inicialitza amb un objecte buit
-  films: any[] = []; // Array per emmagatzemar les pel·lícules
-  pilots: any[] = []; // Array per emmagatzemar els pilots
   starshipImageUrl: string = ''; // Inicialment buida
   defaultImageUrl: string = 'img/nau.png';
 
@@ -56,25 +56,6 @@ export class StarshipDetailsComponent implements OnInit {
       }
     );
 }
-
-    // Carrega les dades de les pel·lícules
-    loadFilms(filmUrls: string[]): void {
-      filmUrls.forEach(url => {
-        this.http.get(url).subscribe((film: any) => {
-          this.films.push(film);
-        });
-      });
-    }
-
-    // Carrega les dades dels pilots
-  loadPilots(pilotUrls: string[]): void {
-    pilotUrls.forEach(url => {
-      this.http.get(url).subscribe((pilot: any) => {
-        this.pilots.push(pilot);
-      });
-    });
-  }
-
 
 
 }

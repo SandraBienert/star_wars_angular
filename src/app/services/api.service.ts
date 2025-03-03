@@ -64,6 +64,48 @@ export class ApiService {
     public getImageReserva(): string {
       return this.imageReserva;
     }
+
+    getFilmsByUrls(urls: string[]): Observable<any[]> {
+      return this.getEntitiesByUrls(urls, 'films').pipe(
+        map((films) =>
+          films.map((film) => ({
+            ...film,
+            episode: `Episode ${film.episode_id}`
+          }))
+        )
+      );
+    }
+
+    getPilotsByUrls(urls: string[]): Observable<any[]> {
+      return this.getEntitiesByUrls(urls, 'characters');
+    }
+
+    private getEntitiesByUrls(urls: string[], type: string): Observable<any[]> {
+      return new Observable<any[]>((observer) => {
+        const requests = urls.map((url) => this.http.get(url));
+        Promise.all(requests.map((req) => req.toPromise()))
+          .then((entities) => {
+            observer.next(
+              entities.map((entity: any) => ({
+                ...entity,
+                id: this.extractIdFromUrl(entity.url),
+              }))
+            );
+            observer.complete();
+          })
+          .catch((error) => {
+            observer.error(error);
+          });
+      });
+    }
+
+    getFilmImageUrl(id: string): string {
+      return `${this.imageBase}films/${id}.jpg`;
+    }
+
+    getPilotImageUrl(id: string): string {
+      return `${this.imageBase}characters/${id}.jpg`;
+    }
 }
 
 

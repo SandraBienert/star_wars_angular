@@ -34,21 +34,4 @@
     <p>Carregant detalls de la nau espacial...</p>
   </ng-template>
 </div>
-<h3>Films</h3>
-  <ul>
-    <li *ngFor="let film of films">
-      {{ film.title }} ({{ film.release_date }})
-    </li>
-  </ul>
-
-  <h3>Pilots</h3>
-  <ul>
-    <li *ngFor="let pilot of pilots">
-      {{ pilot.name }} ({{ pilot.birth_year }})
-    </li>
-  </ul>
-</div>
-
-<div *ngIf="!starship">
-  <p>Loading starship details...</p>
-</div>
+<app-films-list></app-films-list>
