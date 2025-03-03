@@ -1,5 +1,5 @@
 <div class="starships-container">
-  <a class="list-group-item list-group" *ngFor="let starship of starships" [routerLink]="['starship', starship.id]">
+  <a class="list-group-item list-group" *ngFor="let starship of starships" [routerLink]="['/starship', starship.id]">
     Nom: {{starship.name}}<br>Model: {{starship.model}}
   </a>
   <div class="d-flex justify-content-center">
