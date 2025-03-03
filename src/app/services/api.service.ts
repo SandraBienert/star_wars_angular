@@ -19,8 +19,9 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getStarshipsData(): Observable<IResultsApi> {
-    return this.http.get<IResultsApi>(this.apiUrl).pipe(
+  getStarshipsData(url?: string): Observable<IResultsApi> {
+    const apiUrl = url || this.apiUrl; // Utilitza la URL proporcionada o la URL per defecte
+    return this.http.get<IResultsApi>(apiUrl).pipe(
       map((data: IResultsApi) => ({
         ...data,
         results: data.results.map((starship: IStarships) => ({

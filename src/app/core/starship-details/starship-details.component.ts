@@ -3,14 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { FilmsListComponent } from "../films-list/films-list.component";
+import { PilotsListComponent } from "../pilots-list/pilots-list.component";
 
 
 @Component({
   selector: 'app-starship-details',
   standalone: true,
-  imports: [CommonModule, FilmsListComponent],
+  imports: [CommonModule, FilmsListComponent, PilotsListComponent],
   templateUrl: './starship-details.component.html',
   styleUrls: ['./starship-details.component.css']
 })
@@ -22,7 +22,7 @@ export class StarshipDetailsComponent implements OnInit {
   defaultImageUrl: string = 'img/nau.png';
 
 
-  constructor(private apiService: ApiService, private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private apiService: ApiService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
