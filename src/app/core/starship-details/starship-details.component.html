@@ -13,7 +13,8 @@
         <div class="datos-container">
         <div class="row d-flex textalign-center">
           <div class="col-md-6 mt-5 text-center align-items-center">
-            <img [src]="starshipImageUrl" width="500" height="300" loading="eager" alt="Imatge de la nau espacial" class="img-fluid align-rigth">
+            <img [src]="starshipImageUrl" width="500" height="300" loading="eager"
+            alt="{{starship.name}}" (error)="starshipImageUrl = defaultImageUrl" class="img-fluid align-rigth">
         </div>
           <div class="col-6 pt-4" id="datos">
             <p><strong>Name:</strong> {{starship.name}}</p>
@@ -29,8 +30,8 @@
         </div>
         </div>
       </div>
-      <app-films-list></app-films-list>
-        <app-pilots-list></app-pilots-list>
+ <app-pilots-list *ngIf="starship?.pilots" [pilotUrls]="starship.pilots"></app-pilots-list>
+ <app-films-list *ngIf="starship?.films" [filmUrls]="starship.films"></app-films-list>
     </div>
   <ng-template #loading>
     <p>Carregant detalls de la nau espacial...</p>

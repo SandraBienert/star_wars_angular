@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pilots-list',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './pilots-list.component.html',
-  styleUrl: './pilots-list.component.css'
+  styleUrls: ['./pilots-list.component.css']
 })
 export class PilotsListComponent {
+
   @Input() pilotUrls: string[] = [];
   pilots: any[] = [];
 

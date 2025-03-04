@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Auth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup  } from '@angular/fire/auth'; // Importa Firebase
+import { Auth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged  } from '@angular/fire/auth'; // Importa Firebase
 import { FirebaseError } from 'firebase/app';
 
 
@@ -17,10 +17,12 @@ import { FirebaseError } from 'firebase/app';
 
 export class LoginComponent implements OnInit {
 
+  private auth: Auth = inject(Auth);
+
   loginForm: FormGroup;
   loginError: string = '';
 
-  constructor(private auth: Auth, private router: Router, private fb: FormBuilder){
+  constructor(private router: Router, private fb: FormBuilder){
 
      this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -29,8 +31,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        console.log('Usuari connectat:', user);
+      } else {
+        console.log('Usuari no connectat');
+      }
+    });
   }
+  
 
 
   get email(){

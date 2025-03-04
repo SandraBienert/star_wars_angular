@@ -19,12 +19,12 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getStarshipsData(url?: string): Observable<IResultsApi> {
+  getStarshipsData(url: string = this.apiUrl): Observable<any> {
     const apiUrl = url || this.apiUrl; // Utilitza la URL proporcionada o la URL per defecte
-    return this.http.get<IResultsApi>(apiUrl).pipe(
-      map((data: IResultsApi) => ({
+    return this.http.get(url).pipe(
+      map((data: any) => ({
         ...data,
-        results: data.results.map((starship: IStarships) => ({
+        results: data.results.map((starship: any) => ({
           ...starship,
           id: this.extractIdFromUrl(starship.url), // Assegura't que el tipus de `id` coincideixi
         })),
@@ -36,30 +36,18 @@ export class ApiService {
     );
   }
 
-  getStarshipById(id: string): Observable<IStarships | null> {
-    return this.http.get<IResultsApi>(this.apiUrl).pipe(
-      map((data: IResultsApi) => {
-        const starship = data.results.find((s: IStarships) => this.extractIdFromUrl(s.url) === +id);
-        return starship || null; // Retorna la nau espacial o `null` si no es troba
-      }),
-      catchError((error) => {
-        console.error('Error obtenint la nau espacial:', error);
-        return of(null); // Retorna `null` en cas d'error
-      })
-    );
+    getStarshipById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}/`);
   }
 
-    extractIdFromUrl(url: string): number {
+    extractIdFromUrl(url: string): string {
       const segments = url.split('/').filter(Boolean);
-      return parseInt(segments[segments.length - 1], 10); // Converteix a número
+      return segments[segments.length - 1]; // Converteix a número
     }
 
-    getStarshipImageUrl(id: string): Observable<string> {
-      const apiImageUrl = `${this.imageBase}starships/${id}.jpg`;
-      return this.http.head(apiImageUrl, {observe: 'response'}).pipe(
-        map(() => apiImageUrl),
-        catchError(() => of(this.imageReserva))
-      );
+    getStarshipImageUrl(id: string): string {
+      return `${this.imageBase}starships/${id}.jpg`;
+
     }
 
     public getImageReserva(): string {

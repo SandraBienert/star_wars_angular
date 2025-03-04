@@ -1,13 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-films-list',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './films-list.component.html',
-  styleUrl: './films-list.component.css'
+  styleUrls: ['./films-list.component.css']
 })
 export class FilmsListComponent {
 
