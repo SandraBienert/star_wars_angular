@@ -1,0 +1,12 @@
+
+<div class="cards-container">
+  <!-- Itera sobre l'array d'imatges i crea una carta per a cada imatge -->
+  <mat-card *ngFor="let image of images" class="example-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Star Wars Film</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <img mat-card-image [src]="image" alt="Star Wars Poster">
+    </mat-card-content>
+  </mat-card>
+</div>

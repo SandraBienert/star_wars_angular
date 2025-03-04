@@ -1,0 +1,23 @@
+.cards-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px; /* Espai entre les cartes */
+  padding: 16px;
+  background-color: black;
+  color: white;
+}
+
+.example-card {
+  width: 300px; /* Amplada de cada carta */
+}
+
+.example-header-image {
+  background-image: url('https://via.placeholder.com/40'); /* Imatge d'avatar */
+  background-size: cover;
+}
+
+img[mat-card-image] {
+  height: 400px; /* Alçada de la imatge */
+  object-fit: cover; /* Assegura que la imatge s'ajusti bé */
+}

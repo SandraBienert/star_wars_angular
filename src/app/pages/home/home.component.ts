@@ -5,12 +5,13 @@ import { UserInterface } from '../../interfaces/user-interface';
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth'; // Importa Firebase Auth
 import { Router } from '@angular/router';
 import {MatTabsModule} from '@angular/material/tabs';
+import { CardsHomeComponent } from "../../shared/cards-home/cards-home.component";
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MatTabsModule, StarshipsListComponent],
+  imports: [CommonModule, MatTabsModule, StarshipsListComponent, CardsHomeComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

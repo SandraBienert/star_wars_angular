@@ -6,8 +6,12 @@ div {
   justify-content: end;
   background-color:#f0ad4e;
 }
+
+/* Estil per al mat-tab-group */
 .mat-tab-group {
-  margin-bottom: 48px;
+  background-color: black; /* Fons negre */
+  color: white;
+  margin-bottom: 48px; /* Text blanc */
 }
 
 
