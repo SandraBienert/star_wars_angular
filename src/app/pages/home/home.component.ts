@@ -4,11 +4,13 @@ import { StarshipsListComponent } from '../../core/starships-list/starships-list
 import { UserInterface } from '../../interfaces/user-interface';
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth'; // Importa Firebase Auth
 import { Router } from '@angular/router';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, StarshipsListComponent],
+  imports: [CommonModule, MatTabsModule, StarshipsListComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

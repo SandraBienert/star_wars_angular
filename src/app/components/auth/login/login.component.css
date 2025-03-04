@@ -5,7 +5,7 @@
   background-color: #f0fff0;
 }
 
-.ng-valid:not(form).ng-touched{
+.ng-invalid:not(form).ng-touched{
   border-left: 8px solid #a90f0c;
-  background-color: #fff0f0;
+  background-color: #fff0f0; 
 }

@@ -41,7 +41,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
   async logout() {
     try {
       await this.auth.signOut(); // Tanca la sessió amb Firebase
-      this.router.navigateByUrl('/login'); // Redirigeix a la pàgina d'inici de sessió
+      this.router.navigateByUrl('/welcome'); // Redirigeix a la pàgina d'inici de sessió
     } catch (error) {
       console.error('Error en tancar sessió: ', error);
     }

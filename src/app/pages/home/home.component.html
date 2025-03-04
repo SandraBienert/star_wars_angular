@@ -1,10 +1,27 @@
+
 <div *ngIf="userLoginOn; else loginMessage">
   <p>Benvingut/da, {{ userData?.displayName || userData?.email }}!</p>
 </div>
-
 <ng-template #loginMessage>
   <p>Si us plau, inicia sessió per accedir al contingut.</p>
 </ng-template>
 
-<app-starships-list></app-starships-list>
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+  <mat-tab label="Home">
+    home
+  </mat-tab>
+  <mat-tab label="Starships">
+  <app-starships-list></app-starships-list>
+  </mat-tab>
+</mat-tab-group>
+
+
+
+
+
+
+
+
+
+
 

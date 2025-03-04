@@ -6,3 +6,8 @@ div {
   justify-content: end;
   background-color:#f0ad4e;
 }
+.mat-tab-group {
+  margin-bottom: 48px;
+}
+
+
