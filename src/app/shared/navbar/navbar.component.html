@@ -1,18 +1,18 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid d-flex justify-content-around" id="containerGeneral">
     <ul class="d-flex justify-content-center" id="xarxesSocials">
-      <li><i class="bi bi-facebook"></i></li>
-      <li><i class="bi bi-twitter-x"></i></li>
-      <li><i class="bi bi-instagram"></i></li>
-      <li><i class="bi bi-tiktok"></i></li>
-      <li><i class="bi bi-youtube"></i></li>
+      <li><a href="https://www.facebook.com/" target="_blank"><i class="bi bi-facebook"></i></a></li>
+      <li><a href="https://www.x.com/" target="_blank"><i class="bi bi-twitter-x"></i></a></li>
+      <li><a href="https://www.instagram.com/" target="_blank"><i class="bi bi-instagram"></i></a></li>
+      <li><a href="https://www.tiktok.com/" target="_blank"><i class="bi bi-tiktok"></i></a></li>
+      <li><a href="https://www.youtube.com/" target="_blank"><i class="bi bi-youtube"></i></a></li>
     </ul>
     <a class="navbar-brandr">
       <img src="/logo/logo-starwars-transp.png">
     </a>
     <ul id="containerSesion">
        <!-- Mostra "Carregant..." mentre s'està carregant l'estat -->
-       <span *ngIf="isLoading"class="spinner-border spinner-border-sm" role="status">Carregant...</span>
+       <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">Carregant...</span>
        <!-- Mostra "Iniciar sessió" si no està carregant i l'usuari no està connectat -->
        <a *ngIf="!isLoading && !userLoginOn" routerLink="/login">Iniciar sessió</a>
        <!-- Mostra "Tancar sessió" si no està carregant i l'usuari està connectat -->
