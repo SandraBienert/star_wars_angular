@@ -7,5 +7,10 @@
 
 .ng-invalid:not(form).ng-touched{
   border-left: 8px solid #a90f0c;
-  background-color: #fff0f0; 
+  background-color: #fff0f0;
+}
+
+.containerRegister.mt-3{
+  color:black;
+  text-decoration: none;
 }

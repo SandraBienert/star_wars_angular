@@ -5,12 +5,14 @@ import { ApiService } from '../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { FilmsListComponent } from "../films-list/films-list.component";
 import { PilotsListComponent } from "../pilots-list/pilots-list.component";
+import { ButtonBackComponent } from "../../components/button-back/button-back.component";
+
 
 
 @Component({
   selector: 'app-starship-details',
   standalone: true,
-  imports: [CommonModule, FilmsListComponent, PilotsListComponent],
+  imports: [CommonModule, FilmsListComponent, PilotsListComponent, ButtonBackComponent],
   templateUrl: './starship-details.component.html',
   styleUrls: ['./starship-details.component.css']
 })

@@ -24,7 +24,12 @@
       <small *ngIf="registerForm.controls.email.errors?.['email']">Introdueix un correu electrònic vàlid.</small>
     </div>
 </div>
+<div>
   <button type="submit" class="btn btn-warning" [disabled]="registerForm.invalid">Registrar-se</button>
+</div>
+  <div class="containerLogin mt-3">
+    <a routerLink="/login">Ets membre? Ves a Login</a>
+  </div>
 </form>
 </div>
 </div>
