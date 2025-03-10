@@ -16,7 +16,7 @@
        <!-- Mostra "Iniciar sessió" si no està carregant i l'usuari no està connectat -->
        <a *ngIf="!isLoading && !userLoginOn" routerLink="/login">Iniciar sessió</a>
        <!-- Mostra "Tancar sessió" si no està carregant i l'usuari està connectat -->
-       <a *ngIf="!isLoading && userLoginOn" (click)="logout()">Tancar sessió</a>
+       <a *ngIf="!isLoading && userLoginOn" (click)="logout()" id="tancarSessio">Tancar sessió</a>
       </ul>
     </div>
 </nav>
