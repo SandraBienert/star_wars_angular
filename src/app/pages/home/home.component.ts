@@ -1,11 +1,11 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StarshipsListComponent } from '../../core/starships-list/starships-list.component';
+import { StarshipsListComponent } from '../../core/starships-list/starships-list.component'; // Ensure this is a standalone component
 import { UserInterface } from '../../interfaces/user-interface';
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth'; // Importa Firebase Auth
 import { Router } from '@angular/router';
 import {MatTabsModule} from '@angular/material/tabs';
-import { CardsHomeComponent } from "../../shared/cards-home/cards-home.component";
+import { CardsHomeComponent } from "../../shared/cards-home/cards-home.component"; // Ensure this is a standalone component
 
 
 

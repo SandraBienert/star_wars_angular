@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { RouterModule } from '@angular/router';
-
+import { IStarships } from '../../interfaces/i-starships'; // Adjust the path as necessary
 
 
 @Component({
@@ -11,47 +11,38 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule],
   templateUrl: './starships-list.component.html',
   styleUrls: ['./starships-list.component.css',],
-  providers: [ApiService]
 })
 
 
 export class StarshipsListComponent implements OnInit {
-  starships: any[] = [];
-  loading = false;
-  nextUrl: string | null = null;
 
+  starships = signal<IStarships[]>([]);
+  loading = signal<boolean>(false);
+  nextUrl = signal<string | null>(null);
 
-  constructor(private apiService: ApiService){}
+  constructor(private apiService: ApiService){
+    this.starships = this.apiService.starships;
+    this.nextUrl = this.apiService.nextPageUrl;
+  }
 
   ngOnInit(): void {
     this.loadStarships();
   }
 
-  loadStarships(url: string | null = null): void {
-    if (this.loading) return; // Evita cridades múltiples
-    this.loading = true;
-
-    // Utilitza la URL proporcionada o la URL per defecte de l'API
-    const apiUrl = url || this.apiService['apiUrl'];
-
-    this.apiService.getStarshipsData(apiUrl).subscribe(
-      (data) => {
-        this.starships = [...this.starships, ...data.results]; // Afegeix les noves naus a la llista
-        this.nextUrl = data.next; // Actualitza la URL de la següent pàgina
-        this.loading = false;
-      },
-      (error) => {
-        console.error('Error carregant les naus:', error);
-        this.loading = false;
-      }
-    );
+  loadStarships(url?: string): void {
+    if (this.loading()) return; // Evita cridades múltiples
+    this.loading.set(true);
+    this.apiService.getStarshipsData(url); // Crida el mètode del servei per obtenir les dades
+    this.loading.set(false);
   }
+
+
 
   // Carrega la següent pàgina de naus
   viewMore(): void {
-    if (this.nextUrl) {
-      this.loadStarships(this.nextUrl); // Passa la URL de la següent pàgina
-    }
+    const nextUrlValue = this.nextUrl();
+  if (nextUrlValue) {
+    this.loadStarships(nextUrlValue);
   }
   }
-
+}

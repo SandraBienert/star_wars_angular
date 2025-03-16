@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { inject, Injectable, signal } from '@angular/core';
+import { forkJoin, map, Observable, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { IStarships } from '../interfaces/i-starships';
 import { IResultsApi } from '../interfaces/i-results-api';
 
@@ -12,34 +12,48 @@ import { IResultsApi } from '../interfaces/i-results-api';
 
 export class ApiService {
 
-  private apiUrl = 'https://swapi.dev/api/starships';
-  private imageBase='https://starwars-visual-guide.com/assets/';
-  private imageReserva= 'img/nau.png';
+http = inject(HttpClient);
+
+starships = signal<IStarships[]>([]);
+nextPageUrl = signal<string | null>(null);
+
+private apiUrl = 'https://swapi.dev/api/starships';
+private imageBase='https://starwars-visual-guide.com/assets/';
+private imageReserva= 'img/nau.png';
 
 
-  constructor(private http: HttpClient) { }
+getStarshipsData(url: string = this.apiUrl): void {
+  this.http.get<IResultsApi>(url).pipe(
+    map(response => {
+      this.starships.set([...this.starships(), ...response.results]);
+      this.nextPageUrl.set(response.next || null);
+      return response.results;
+    }),
+    catchError(error => {
+      console.warn('⚠️ Error amb la API principal', error);
+      return of([]);
+    })
+  ).subscribe();
+}
 
-  getStarshipsData(url: string = this.apiUrl): Observable<any> {
-    const apiUrl = url || this.apiUrl; // Utilitza la URL proporcionada o la URL per defecte
-    return this.http.get(url).pipe(
-      map((data: any) => ({
-        ...data,
-        results: data.results.map((starship: any) => ({
-          ...starship,
-          id: this.extractIdFromUrl(starship.url), // Assegura't que el tipus de `id` coincideixi
-        })),
-      })),
-      catchError((error) => {
-        console.error('Error obtenint les naus espacials:', error);
-        return of({ count: 0, next: null, previous: null, results: [] });
+
+getStarships(): Observable<IStarships[]> {
+  return this.http.get<IStarships[]>(this.apiUrl);
+}
+
+getStarshipById(id: string): Observable<IStarships | null> {
+  if (!id) {
+    console.warn('ID no encontrado');
+    return of(null);
+  } else {
+    return this.http.get<IStarships>(`${this.apiUrl}/${id}/`).pipe(
+      catchError(error => {
+        console.error(`Error fetching starship with ID ${id}:`, error);
+        return of(null);
       })
     );
   }
-
-    getStarshipById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}/`);
-  }
-
+}
     extractIdFromUrl(url: string): string {
       const segments = url.split('/').filter(Boolean);
       return segments[segments.length - 1]; // Converteix a número
@@ -66,26 +80,28 @@ export class ApiService {
     }
 
     getPilotsByUrls(urls: string[]): Observable<any[]> {
-      return this.getEntitiesByUrls(urls, 'characters');
+      return this.getEntitiesByUrls(urls, 'pilots');
     }
 
     private getEntitiesByUrls(urls: string[], type: string): Observable<any[]> {
-      return new Observable<any[]>((observer) => {
-        const requests = urls.map((url) => this.http.get(url));
-        Promise.all(requests.map((req) => req.toPromise()))
-          .then((entities) => {
-            observer.next(
-              entities.map((entity: any) => ({
-                ...entity,
-                id: this.extractIdFromUrl(entity.url),
-              }))
-            );
-            observer.complete();
-          })
-          .catch((error) => {
-            observer.error(error);
-          });
-      });
+      if (urls.length === 0) {
+        console.warn(`No URLs provided for ${type}`);
+        return of([]);
+      }
+
+      const requests = urls.map((url) => this.http.get(url));
+      return forkJoin(requests).pipe(
+        map((entities: any[]) =>
+          entities.map((entity: any) => ({
+            ...entity,
+            id: this.extractIdFromUrl(entity.url),
+          }))
+        ),
+        catchError((error) => {
+          console.error(`Error fetching ${type}:`, error);
+          return of([]);
+        })
+      );
     }
 
     getFilmImageUrl(id: string): string {
@@ -93,7 +109,7 @@ export class ApiService {
     }
 
     getPilotImageUrl(id: string): string {
-      return `${this.imageBase}characters/${id}.jpg`;
+      return `${this.imageBase}pilots/${id}.jpg`;
     }
 }
 

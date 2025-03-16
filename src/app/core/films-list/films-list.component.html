@@ -9,7 +9,7 @@
     <div *ngIf="films.length > 0; else noFilms" class="row row-cols-1 row-cols-md-4 g-4 py-3">
       <div *ngFor="let film of films" class="col">
         <div class="card bg-dark text-white rounded-5 h-100">
-          <img [src]="getFilmImage(film.id)" class="card-img-top custom-border rounded-top-5" alt="{{ film.title }}" />
+          <img [src]="getFilmImage(filmUrls[films.indexOf(film)])" class="card-img-top custom-border rounded-top-5" alt="{{ film.title }}" />
           <div class="card-body text-center">
             <h5 class="card-title fw-bold">{{ film.title | uppercase }}</h5>
             <p class="card-text">{{ film.episode }}</p>

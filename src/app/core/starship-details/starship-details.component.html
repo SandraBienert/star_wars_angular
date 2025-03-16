@@ -7,35 +7,53 @@
         <h2 class="text-start py-2 ps-3">Starship</h2>
         <hr class="text-white my-1"/>
       </div>
-      <div *ngIf ="starship; else loading" class="row pt-4 d-flex align-items-center" id="background">
+
+      <div *ngIf="selectedStarship(); else loading" class="row pt-4 d-flex align-items-center" id="background">
         <div class="col-md-6 d-flex">
-          <h1 class="mb-3">{{starship.name}}</h1>
+          <h1 class="mb-3"><strong>{{ selectedStarship().name }}</strong></h1>
         </div>
+
         <div class="datos-container">
-        <div class="row d-flex textalign-center">
-          <div class="col-md-6 mt-5 text-center align-items-center">
-            <img [src]="starshipImageUrl" width="500" height="300" loading="eager"
-            alt="{{starship.name}}" (error)="starshipImageUrl = defaultImageUrl" class="img-fluid align-rigth">
-        </div>
-          <div class="col-6 pt-4" id="datos">
-            <p><strong>Name:</strong> {{starship.name}}</p>
-            <p><strong>Model:</strong> {{starship.model}}</p>
-            <p><strong>Manufacturer:</strong> {{starship.manufacturer}}</p>
-            <p><strong>Length:</strong> {{starship.length}}</p>
-            <p><strong>Crew:</strong> {{starship.crew}}</p>
-            <p><strong>Passengers:</strong> {{starship.passengers}}</p>
-            <p><strong>Capacidad:</strong> {{starship.cargo_capacity}}</p>
-            <p><strong>Consumables:</strong> {{starship.consumables}}</p>
-            <p><strong>Starship Class:</strong> {{starship.starship_class}}</p>
+          <div class="row d-flex text-align-center">
+            <div class="col-md-6 mt-5 text-center align-items-center">
+              <img
+                [src]="starshipImageUrl()"
+                loading="eager"
+                alt="{{ selectedStarship().name }}"
+                (error)="starshipImageUrl.set(defaultImageUrl)"
+                class="img-fluid align-right">
+            </div>
+
+            <div class="col-6 pt-4" id="datos">
+              <p><strong>Name:</strong> {{ starship().name }}</p>
+              <p><strong>Model:</strong> {{ starship().model }}</p>
+              <p><strong>Manufacturer:</strong> {{ starship().manufacturer }}</p>
+              <p><strong>Length:</strong> {{ starship().length }}</p>
+              <p><strong>Crew:</strong> {{ starship().crew }}</p>
+              <p><strong>Passengers:</strong> {{ starship().passengers }}</p>
+              <p><strong>Capacidad:</strong> {{ starship().cargo_capacity }}</p>
+              <p><strong>Consumables:</strong> {{ starship().consumables }}</p>
+              <p><strong>Starship Class:</strong> {{ starship().starship_class }}</p>
+            </div>
           </div>
         </div>
-        </div>
       </div>
- <app-pilots-list *ngIf="starship?.pilots" [pilotUrls]="starship.pilots"></app-pilots-list>
- <app-films-list *ngIf="starship?.films" [filmUrls]="starship.films"></app-films-list>
+
+      <!-- Llista de pilots -->
+      <div *ngIf="selectedStarship()?.films?.length ?? 0 > 0">
+        <app-pilots-list [pilotUrls]="selectedStarship().pilots"></app-pilots-list>
+      </div>
+
+      <!-- Llista de pel·lícules -->
+      <div *ngIf="(selectedStarship()?.pilots?.length ?? 0) > 0">
+        <app-films-list [filmUrls]="selectedStarship().films"></app-films-list>
+      </div>
+
     </div>
-  <ng-template #loading>
-    <p>Carregant detalls de la nau espacial...</p>
-  </ng-template>
+  </div>
 </div>
 
+<!-- Missatge de càrrega -->
+<ng-template #loading>
+  <p>Carregant detalls de la nau espacial...</p>
+</ng-template>

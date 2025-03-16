@@ -1,6 +1,6 @@
 import { CardsHomeService } from './../../services/cards-home.service';
 import { CommonModule } from '@angular/common';
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 
@@ -10,7 +10,7 @@ import {MatCardModule} from '@angular/material/card';
   imports: [CommonModule, MatCardModule, MatButtonModule],
   templateUrl: './cards-home.component.html',
   styleUrls: ['./cards-home.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardsHomeComponent {
 
